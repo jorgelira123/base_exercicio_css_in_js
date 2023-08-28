@@ -1,20 +1,7 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import FormVagas from '../../components/FormVagas'
-
 import Vaga from '../../components/Vaga'
-
-import styles from './ListaVagas.module.css'
-
-type Vaga = {
-  id: string
-  titulo: string
-  localizacao: string
-  nivel: string
-  modalidade: string
-  salarioMin: number
-  salarioMax: number
-  requisitos: string[]
-}
 
 const vagas = [
   {
@@ -97,9 +84,9 @@ const ListaVagas = () => {
   )
 
   return (
-    <div>
+    <Container>
       <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <ul className={styles.vagas}>
+      <VagasGrid>
         {vagasFiltradas.map((vag) => (
           <Vaga
             key={vag.id}
@@ -112,9 +99,23 @@ const ListaVagas = () => {
             requisitos={vag.requisitos}
           />
         ))}
-      </ul>
-    </div>
+      </VagasGrid>
+    </Container>
   )
 }
+
+const Container = styled.div``
+
+const VagasGrid = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin-top: 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`
 
 export default ListaVagas
